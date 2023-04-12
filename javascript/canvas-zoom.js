@@ -1,4 +1,4 @@
-const doit = async (document) => {
+const doit = async (root) => {
   // Wait for the specified delay
 
   // LocalStorage functions
@@ -69,10 +69,10 @@ const doit = async (document) => {
   // Wait for the elements to be loaded
   const [sketchEl, inpaintEl, inpaintSketchEl, img2imgTabs] = await Promise.all(
     [
-      document.querySelector(sketchID),
-      document.querySelector(inpaintID),
-      document.querySelector(inpaintSketchID),
-      document.querySelector(img2imgTabsID),
+      root.querySelector(sketchID),
+      root.querySelector(inpaintID),
+      root.querySelector(inpaintSketchID),
+      root.querySelector(img2imgTabsID),
     ]
   );
 
@@ -425,9 +425,7 @@ The higher the transparency level, the more transparent your mask will be:
 
   // Get Active main tab to prevent "Undo" on text2img from being disabled
   function getActiveMainTab() {
-    const selectedTab = document.querySelector(
-      "#tabs .tab-nav button.selected"
-    );
+    const selectedTab = root.querySelector("#tabs .tab-nav button.selected");
     return selectedTab;
   }
 
@@ -485,9 +483,7 @@ The higher the transparency level, the more transparent your mask will be:
 
     // Set the opacity of the brush
     function setBrushOpacity(opacity) {
-      const canvas = document.querySelector(
-        `${inpaintID} canvas[key="interface"]`
-      );
+      const canvas = root.querySelector(`${inpaintID} canvas[key="interface"]`);
 
       const ctx = canvas.getContext("2d");
       ctx.globalAlpha = opacity;
@@ -495,12 +491,12 @@ The higher the transparency level, the more transparent your mask will be:
 
     // Set the opacity of the canvas
     function setCanvasOpacity(opacity) {
-      const canvasEmu = document.querySelector(
+      const canvasEmu = root.querySelector(
         `${inpaintID} canvas[key="interface"]`
       );
-      const canvas = document.querySelector(`${inpaintID} canvas[key="temp"]`);
+      const canvas = root.querySelector(`${inpaintID} canvas[key="temp"]`);
       const ctx = canvas.getContext("2d");
-      const undoBtn = document.querySelector(
+      const undoBtn = root.querySelector(
         `${inpaintID} button[aria-label="Undo"]`
       );
 
@@ -521,9 +517,7 @@ The higher the transparency level, the more transparent your mask will be:
       colorInput.style.position = "absolute";
       colorInput.style.visibility = "hidden";
 
-      const canvas = document.querySelector(
-        `${elemId} canvas[key="interface"]`
-      );
+      const canvas = root.querySelector(`${elemId} canvas[key="interface"]`);
       const style = window.getComputedStyle(canvas);
       let marginLeft = style.getPropertyValue("margin-left");
       marginLeft = +marginLeft.split("px")[0];
@@ -545,11 +539,11 @@ The higher the transparency level, the more transparent your mask will be:
         return;
       }
 
-      const colorBtn = document.querySelector(
+      const colorBtn = root.querySelector(
         `${colorID} button[aria-label="Select brush color"]`
       );
 
-      const colorInput = document.querySelector(
+      const colorInput = root.querySelector(
         `${colorID} input[aria-label="Brush color"]`
       );
 
@@ -559,7 +553,7 @@ The higher the transparency level, the more transparent your mask will be:
 
       // Open color menu
       setTimeout(() => {
-        const colorInput = document.querySelector(
+        const colorInput = root.querySelector(
           `${colorID} input[aria-label="Brush color"]`
         );
 
@@ -592,7 +586,7 @@ The higher the transparency level, the more transparent your mask will be:
         activeMainTab.textContent.trim() === "img2img"
       ) {
         e.preventDefault();
-        const undoBtn = document.querySelector(
+        const undoBtn = root.querySelector(
           `${elemId} button[aria-label="Undo"]`
         );
         if (undoBtn && activeTab === elemId) {
@@ -631,15 +625,15 @@ The higher the transparency level, the more transparent your mask will be:
     // Adjust the brush size based on the deltaY value from a mouse wheel event.
     function adjustBrushSize(elemId, deltaY) {
       const input =
-        document.querySelector(`${elemId} input[aria-label='Brush radius']`) ||
-        document.querySelector(`${elemId} button[aria-label="Use brush"]`);
+        root.querySelector(`${elemId} input[aria-label='Brush radius']`) ||
+        root.querySelector(`${elemId} button[aria-label="Use brush"]`);
       input.click();
       input.value = parseFloat(input.value) + (deltaY > 0 ? -3 : 3);
       input.dispatchEvent(new Event("change"));
     }
 
     //Reset Zoom when upload image, To get rid of the bug, the picture becomes cropped
-    fileInput = document.querySelector(
+    fileInput = root.querySelector(
       `${elemId} input[type="file"][accept="image/*"].svelte-116rqfv`
     );
 
@@ -690,9 +684,7 @@ The higher the transparency level, the more transparent your mask will be:
     function fitToScreen() {
       resetZoom();
 
-      const canvas = document.querySelector(
-        `${elemId} canvas[key="interface"]`
-      );
+      const canvas = root.querySelector(`${elemId} canvas[key="interface"]`);
 
       if (canvas.offsetWidth > 862) {
         targetElement.style.width = canvas.offsetWidth + "px";
