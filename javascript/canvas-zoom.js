@@ -1,4 +1,4 @@
-const doit = (document) => {
+const doit = async (document) => {
   // Wait for the specified delay
 
   // LocalStorage functions
@@ -912,11 +912,11 @@ The higher the transparency level, the more transparent your mask will be:
   applyZoomAndPan(sketchEl, sketchID);
   applyZoomAndPan(inpaintEl, inpaintID);
   applyZoomAndPan(inpaintSketchEl, inpaintSketchID);
-}
+};
 
-var shadowRootLoaded = setInterval(function() {
-  var shadowRoot = document.querySelector('gradio-app').shadowRoot;
-  if(! shadowRoot)  return false;
+var shadowRootLoaded = setInterval(function () {
+  var shadowRoot = document.querySelector("gradio-app").shadowRoot;
+  if (!shadowRoot) return false;
 
   clearInterval(shadowRootLoaded);
   doit(shadowRoot);
