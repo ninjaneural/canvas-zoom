@@ -1,5 +1,5 @@
 (async () => {
-  const document = document.querySelector('gradio-app').shadowRoot ? document.querySelector('gradio-app').shadowRoot.document : window.document;
+  const document = document.querySelector('gradio-app').shadowRoot ? document.querySelector('gradio-app').shadowRoot : window.document;
   
   // Wait for the specified delay
   await new Promise((resolve) => setTimeout(resolve, 3000));
