@@ -1,8 +1,5 @@
-(async () => {
+const doit = () => {
   // Wait for the specified delay
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  
-  const document = document.querySelector('gradio-app').shadowRoot ? document.querySelector('gradio-app').shadowRoot : window.document;
 
   // LocalStorage functions
   // Save the config to localStorage
@@ -915,4 +912,12 @@ The higher the transparency level, the more transparent your mask will be:
   applyZoomAndPan(sketchEl, sketchID);
   applyZoomAndPan(inpaintEl, inpaintID);
   applyZoomAndPan(inpaintSketchEl, inpaintSketchID);
-})();
+}
+
+var shadowRootLoaded = setInterval(function() {
+  var shadowRoot = document.querySelector('gradio-app').shadowRoot;
+  if(! shadowRoot)  return false;
+
+  clearInterval(shadowRootLoaded);
+  doit();
+}, 1000);
