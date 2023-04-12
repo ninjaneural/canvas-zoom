@@ -1,4 +1,4 @@
-const doit = () => {
+const doit = (document) => {
   // Wait for the specified delay
 
   // LocalStorage functions
@@ -919,5 +919,5 @@ var shadowRootLoaded = setInterval(function() {
   if(! shadowRoot)  return false;
 
   clearInterval(shadowRootLoaded);
-  doit();
+  doit(shadowRoot);
 }, 1000);
